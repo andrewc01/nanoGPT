@@ -21,7 +21,7 @@ def get_default_device():
         return torch.device('cpu')
     
 device = get_default_device()
-# -----------------
+# -----------------------
 
 torch.manual_seed(1337)
 
