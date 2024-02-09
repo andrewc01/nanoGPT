@@ -3,11 +3,11 @@ import torch.nn as nn
 from torch.nn import functional as F
 
 # hyperparameters
-batch_size = 32
-block_size = 8
+batch_size = 64
+block_size = 256
 max_iters = 5000
 eval_interval = 500
-learning_rate = 1e-3
+learning_rate = 3e-3
 eval_iters = 200
 n_embd = 384
 n_head = 6
@@ -143,8 +143,8 @@ class Block(nn.Module):
         x = x + self.ffwd(self.ln2(x))
         return x
 
-# Simple Bigram model
-class BigramLanguageModel(nn.Module):
+# Decoder only Transformer
+class DecoderOnlyTransformer(nn.Module):
 
     def __init__(self, vocab_size):
         super().__init__()
@@ -192,7 +192,7 @@ class BigramLanguageModel(nn.Module):
         return idx
     
 
-model = BigramLanguageModel(vocab_size)
+model = DecoderOnlyTransformer(vocab_size)
 m = model.to(device)
 
 # PyTorch optimizer
