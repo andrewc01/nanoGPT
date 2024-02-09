@@ -9,7 +9,10 @@ max_iters = 5000
 eval_interval = 500
 learning_rate = 1e-3
 eval_iters = 200
-n_embd = 32
+n_embd = 384
+n_head = 6
+n_layer = 6
+dropout = 0.2
 
 # device agnostic code
 def get_default_device():
@@ -78,6 +81,8 @@ class Head(nn.Module):
         self.value = nn.Linear(n_embd, head_size, bias=False)
         self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
 
+        self.dropout = nn.Dropout(dropout)
+
     def forward(self, x):
         B,T,C = x.shape
         k = self.key(x) # (B, T, C)
@@ -86,6 +91,7 @@ class Head(nn.Module):
         wei = q @ k.transpose(-2, -1) * C**-0.5 # (B, T, C) @ (B, C, T) --> (B, T, T)
         wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf')) # (B, T, T)
         wei = F.softmax(wei, dim=-1) # (B, T, T)
+        wei = self.dropout(wei)
         # perform the weighted aggregation of the values
         v = self.value(x) # (B, T, C)
         out = wei @ v # (B, T, T) @ (B, T, C) --> (B, T, C)
@@ -98,6 +104,7 @@ class MultiHeadAttention(nn.Module):
         super().__init__()
         self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
         self.proj = nn.Linear(n_embd, n_embd)
+        self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
         out = torch.cat([h(x) for h in self.heads], dim=-1)
@@ -113,6 +120,7 @@ class FeedForward(nn.Module):
             nn.Linear(n_embd, 4 * n_embd),
             nn.ReLU(),
             nn.Linear(4 * n_embd, n_embd),
+            nn.Dropout(dropout),
         )
 
     def forward(self, x):
@@ -143,12 +151,8 @@ class BigramLanguageModel(nn.Module):
         
         self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
         self.position_embedding_table = nn.Embedding(block_size, n_embd)
-        self.blocks = nn.Sequential(
-            Block(n_embd, n_head=4),
-            Block(n_embd, n_head=4),
-            Block(n_embd, n_head=4),
-            nn.LayerNorm(n_embd),
-        )
+        self.blocks = nn.Sequential(*[Block(n_embd, n_head=n_head) for _ in range(n_layer)])
+        self.ln_f = nn.LayerNorm(n_embd) # final layer norm
         self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):
