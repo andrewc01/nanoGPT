@@ -27,6 +27,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
   <img src="results/1.png" width="400" alt="result 1">
 
 ### Experiment 2
+* Parameters for **Experiment 2**
 ```python
   batch_size = 128
   block_size = 512
@@ -42,6 +43,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
   <img src="results/2.png" width="400" alt="result 2">
 
 ### Experiment 3
+* Parameters for **Experiment 3**
 ```python
   batch_size = 128
   block_size = 512
@@ -57,6 +59,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
   <img src="results/3.png" width="400" alt="result 3">
 
 ### Experiment 4
+* Parameters for **Experiment 4**
 ```python
   batch_size = 256
   block_size = 512
