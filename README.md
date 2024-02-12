@@ -28,7 +28,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
 
 ### Experiment 2
 * Parameters for **Experiment 2**
-```python
+  ```python
   batch_size = 128
   block_size = 512
   max_iters = 5000
@@ -44,7 +44,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
 
 ### Experiment 3
 * Parameters for **Experiment 3**
-```python
+  ```python
   batch_size = 128
   block_size = 512
   max_iters = 3000
@@ -60,7 +60,7 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
 
 ### Experiment 4
 * Parameters for **Experiment 4**
-```python
+  ```python
   batch_size = 256
   block_size = 512
   max_iters = 3000
