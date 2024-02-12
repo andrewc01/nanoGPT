@@ -11,16 +11,65 @@ Model based on [Andrej Karpathy's nanoGPT lecture](https://youtu.be/kCc8FmEb1nY)
 ## Experiments
 * These are some experiments I did by changing some parameters.
 ### Experiment 1
-<img src="results/1.png" width="400" alt="result 1">
+* Parameters for **Experiment 1**
+  ```python
+  batch_size = 64
+  block_size = 256
+  max_iters = 5000
+  eval_interval = 500
+  learning_rate = 3e-3
+  eval_iters = 200
+  n_embd = 384
+  n_head = 6
+  n_layer = 6
+  dropout = 0.2
+  ```
+  <img src="results/1.png" width="400" alt="result 1">
 
 ### Experiment 2
-<img src="results/2.png" width="400" alt="result 2">
+```python
+  batch_size = 128
+  block_size = 512
+  max_iters = 5000
+  eval_interval = 500
+  learning_rate = 1e-3
+  eval_iters = 200
+  n_embd = 384
+  n_head = 6
+  n_layer = 6
+  dropout = 0.5
+  ```
+  <img src="results/2.png" width="400" alt="result 2">
 
 ### Experiment 3
-<img src="results/3.png" width="400" alt="result 3">
+```python
+  batch_size = 128
+  block_size = 512
+  max_iters = 3000
+  eval_interval = 500
+  learning_rate = 1e-3
+  eval_iters = 200
+  n_embd = 384
+  n_head = 6
+  n_layer = 6
+  dropout = 0.5
+  ```
+  <img src="results/3.png" width="400" alt="result 3">
 
 ### Experiment 4
-<img src="results/4.png" width="400" alt="result 4">
+```python
+  batch_size = 256
+  block_size = 512
+  max_iters = 3000
+  eval_interval = 500
+  learning_rate = 1e-3
+  eval_iters = 200
+  n_embd = 384
+  n_head = 6
+  n_layer = 6
+  dropout = 0.5
+  ```
+  <img src="results/4.png" width="400" alt="result 4">
 
 ## To-dos
 * Make notes for Transformer model
